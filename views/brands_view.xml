@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--form view of the menu -->
+
+    <record id="view_brand_info_form" model="ir.ui.view">
+        <field name="name">brand.info.form</field>
+        <field name="model">vehicle.brand</field>
+        <field name="arch" type="xml">
+            <form create='1' delete='1' edit='1' multi_edit="1">
+                <sheet>
+                    <field name='brand_name'/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view -->
+    <record id="view_brand_info_tree" model="ir.ui.view">
+        <field name="name">brand.info.tree</field>
+        <field name="model">vehicle.brand</field>
+        <field name="arch" type="xml">
+            <tree create='1' delete='1' edit='1' multi_edit="1">
+                <field name='brand_name'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- search view of the menu-->
+     <record id="view_brands_search" model="ir.ui.view">
+        <field name="name">brands.info.search</field>
+        <field name="model">vehicle.brand</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='brand_name' filter_domain="[('brand_name', 'ilike', self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- menu action -->
+    <record id="brand_info_action" model="ir.actions.act_window">
+        <field name="name">Brand Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vehicle.brand</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first car brand!
+            </p>
+        </field>
+
+    </record>
+
+      <!-- menu definition -->
+    <menuitem id="vehicle_brands"
+        name="Car Brands"
+        action="brand_info_action"
+        parent="vehicle_management_root"
+        sequence="40"
+        />
+
+
+
+</odoo>

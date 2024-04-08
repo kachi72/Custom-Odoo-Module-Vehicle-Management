@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- Top menu item -->
+    <menuitem id="vehicle_management_root"
+        name="Vehicle Management"
+        sequence="0"
+        web_icon="vehicle_management,static/description/icon.png"/>
+
+    <!-- Sub menu of the top menu -->
+<!--    <menu item id="particulars_menu"-->
+<!--        name="Particulars Info"-->
+<!--        parent="vehicle_management_root"-->
+<!--        sequence="20"-->
+<!--        />-->
+
+<!--    <menu item id="repairs_menu"-->
+<!--        name="Repairs Info"-->
+<!--        parent="vehicle_management_root"-->
+<!--        sequence="30"-->
+<!--        />-->
+
+<!--    <menu item id="vehicle_brands"-->
+<!--        name="Car Brands"-->
+<!--        parent="vehicle_management_root"-->
+<!--        sequence="40"-->
+<!--        />-->
+
+</odoo>

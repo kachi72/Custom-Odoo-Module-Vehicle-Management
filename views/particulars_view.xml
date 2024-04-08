@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--form view of the menu -->
+
+    <record id="view_particulars_info_form" model="ir.ui.view">
+        <field name="name">particular.info.form</field>
+        <field name="model">particular.info</field>
+        <field name="arch" type="xml">
+            <form create='1' delete='1' edit='1'>
+                <sheet>
+                    <group>
+                        <field name='platenumber_id'/>
+                        <field name='document'/>
+                        <field name='document_no'/>
+                        <field name='expiry_date'/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view -->
+    <record id="view_particulars_info_tree" model="ir.ui.view">
+        <field name="name">particular.info.tree</field>
+        <field name="model">particular.info</field>
+        <field name="arch" type="xml">
+            <tree create='1' delete='0' edit='1' multi_edit="1">
+                <field name='platenumber_id'/>
+                <field name='document'/>
+                <field name='document_no'/>
+                <field name='expiry_date'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- search view of the menu-->
+     <record id="view_particulars_info_search" model="ir.ui.view">
+        <field name="name">particulars.info.search</field>
+        <field name="model">particular.info</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='platenumber_id' filter_domain="[
+                        '|', '|', '|',
+                        ('platenumber_id', 'ilike', self), ('document', 'ilike', self), ('document_no', 'ilike', self), ('expiry_date', 'ilike', self)]"/>
+                <field name='document'/>
+                <field name='document_no'/>
+                <field name='expiry_date'/>
+                <filter name='filter_insurance' string='Insurance' domain="[('document','=','insurance')]"/>
+                <separator/>
+                <filter name='filter_road_worthiness' string='Road Worthiness' domain="[('document','=','road worthiness')]"/>
+                <separator/>
+                <filter name='filter_tinted_glass' string='Tinted Glass' domain="[('document','=','tinted glass permit')]"/>
+                <separator/>
+                <filter name='filter_hackney' string='Hackney Permit' domain="[('document','=','hackney permit')]"/>
+                <separator/>
+                <filter name='filter_proof_ownership' string='Proof of Ownership' domain="[('document','=','proof of ownership')]"/>
+                <separator/>
+                <filter name='filter_licence' string='Vehicle Licence' domain="[('document','=','vehicle licence')]"/>
+                <separator/>
+                <filter name='filter_lg_papers' string='Local Government Papers' domain="[('document','=','local government papers')]"/>
+                <separator/>
+                <filter name='filter_crm_certificate' string='CMR Certificate' domain="[('document','=','cmr certificate')]"/>
+                <separator/>
+                <filter name="filter_current_month" string="Expiring Documents" domain="[('expiry_date', '&gt;=', context_today().strftime('%Y-%m-%d')), ('expiry_date', '&lt;=', (context_today() + relativedelta(months=+2)).strftime('%Y-%m-%d'))]"/>
+
+
+                <group expand="0" string="Group By">
+                        <filter name="group_by_fault" string="Document Type" domain="[]" context="{'group_by': 'document'}"/>
+                </group>
+
+                <searchpanel>
+                        <field name="document" string="Document Type" icon="fa-users" select="multi" enable_counters="1"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- menu action -->
+    <record id="particulars_info_action" model="ir.actions.act_window">
+        <field name="name">Particulars Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">particular.info</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first company vehicle particular info!
+            </p>
+        </field>
+
+    </record>
+
+      <!-- menu definition -->
+    <menuitem id="particulars_menu"
+        name="Particulars Info"
+        action="particulars_info_action"
+        parent="vehicle_management_root"
+        sequence="20"
+        />
+
+</odoo>
+

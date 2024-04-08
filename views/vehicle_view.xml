@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--form view of the menu -->
+
+    <record id="view_vehicle_info_form" model="ir.ui.view">
+        <field name="name">vehicle.info.form</field>
+        <field name="model">vehicle.info</field>
+        <field name="arch" type="xml">
+            <form create='1' delete='1' edit='1' multi_edit="1">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='platenumber'/>
+                            <field name='colour'/>
+                            <field name='brand'/>
+                            <field name='model'/>
+                        </group>
+                        <group>
+                            <field name='model_year'/>
+                            <field name='car_type'/>
+                            <field name='miles'/>
+                            <field name='date_of_purchase'/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view of the menu -->
+    <record id="view_vehicle_info_tree" model="ir.ui.view">
+        <field name="name">vehicle.info.tree</field>
+        <field name="model">vehicle.info</field>
+        <field name="arch" type="xml">
+            <tree create='1' delete='1' edit='1' >
+                <field name='id'/>
+                <field name='platenumber'/>
+                <field name='colour'/>
+                <field name='brand'/>
+                <field name='model'/>
+                <field name='model_year'/>
+                <field name='car_type'/>
+                <field name='miles'/>
+                <field name='date_of_purchase'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- search view of the menu-->
+     <record id="view_vehicle_info_search" model="ir.ui.view">
+        <field name="name">vehicle.info.search</field>
+        <field name="model">vehicle.info</field>
+        <field name="arch" type="xml">
+            <search>
+                 <field name='platenumber' filter_domain="[
+                        '|', '|', '|',
+                        ('platenumber', '=', self), ('colour', 'ilike', self), ('brand', 'ilike', self), ('model', 'ilike', self), ('model_year', 'ilike', self), ('car_type', 'ilike', self), ('miles', 'ilike', self), ('date_of_purchase', 'ilike', self)]"/>
+                <field name='colour'/>
+                <field name='brand'/>
+                <field name='model'/>
+                <field name='model_year'/>
+                <field name='car_type'/>
+                <field name='miles'/>
+                <field name='date_of_purchase'/>
+                <filter name='filter_pickup' string='Pickup' domain="[('car_type','=','pickup')]"/>
+                <separator/>
+                <filter name='filter_sedan' string='Sedan' domain="[('car_type','=','sedan')]"/>
+                <separator/>
+                <filter name='filter_minivan' string='Minivan' domain="[('car_type','=','minivan')]"/>
+                <separator/>
+                <filter name='filter_subcompact' string='Subcompact' domain="[('car_type','=','subcompact')]"/>
+                <group expand="0" string="Group By">
+                        <filter name="group_by_car_type" string="Car Type" domain="[]" context="{'group_by': 'car_type'}"/>
+                </group>
+
+                <searchpanel>
+                        <field name="car_type" string="Car Type" icon="fa-users" select="multi" enable_counters="1"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- menu action -->
+    <record id="vehicle_info_action" model="ir.actions.act_window">
+        <field name="name">Vehicle Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vehicle.info</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first company vehicle!
+            </p>
+        </field>
+
+    </record>
+
+      <!-- menu definition -->
+    <menuitem id="vehicle_info_menu"
+        name="Vehicle Info"
+        action="vehicle_info_action"
+        parent="vehicle_management_root"
+        sequence="10"/>
+
+
+
+</odoo>

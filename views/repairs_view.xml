@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--form view of the menu -->
+
+    <record id="view_repair_info_form" model="ir.ui.view">
+        <field name="name">repair.info.form</field>
+        <field name="model">repairs.info</field>
+        <field name="arch" type="xml">
+            <form create='1' delete='1' edit='1' multi_edit="1">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name='platenumber_id'/>
+                            <field name='fault'/>
+                            <field name='additional_info'/>
+                        </group>
+                        <group>
+                            <field name='parts_used'/>
+                            <field name='start_date'/>
+                            <field name='end_date'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Mechanic Info">
+                            <sheet>
+                                <field name="mechanic" placeholder="Mechanic info"/>
+                            </sheet>
+                        </page>
+                        <page string="Costs Incurred">
+                            <sheet>
+                                <field name="cost" placeholder="Cost incurred"/>
+                            </sheet>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tree view of the menu -->
+    <record id="view_repair_info_tree" model="ir.ui.view">
+        <field name="name">repair.info.tree</field>
+        <field name="model">repairs.info</field>
+        <field name="arch" type="xml">
+            <tree create='1' delete='1' edit='1' multi_edit="1">
+                <field name='platenumber_id'/>
+                <field name='fault'/>
+                <field name='additional_info'/>
+                <field name='parts_used'/>
+                <field name='start_date'/>
+                <field name='end_date'/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- search view of the menu-->
+     <record id="view_repairs_info_search" model="ir.ui.view">
+        <field name="name">repairs.info.search</field>
+        <field name="model">repairs.info</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='platenumber_id' filter_domain="[
+                        '|', '|', '|',
+                        ('platenumber_id', 'ilike', self), ('fault', 'ilike', self), ('additional_info', 'ilike', self), ('parts_used', 'ilike', self), ('start_date', 'ilike', self), ('end_date', 'ilike', self)]"/>
+                <field name='fault'/>
+                <field name='additional_info'/>
+                <field name='parts_used'/>
+                <field name='start_date'/>
+                <field name='end_date'/>
+                <filter name='filter_mechanical' string='Mechanical Fault' domain="[('fault','=','mechanical')]"/>
+                <separator/>
+                <filter name='filter_electrical' string='Electrical Fault' domain="[('fault','=','electrical')]"/>
+                <separator/>
+                <filter name='filter_gear' string='Gear Fault' domain="[('fault','=','gear')]"/>
+                <separator/>
+                <filter name='filter_interior' string='Interior Fault' domain="[('fault','=','interior')]"/>
+                <separator/>
+                <filter name='filter_exterior' string='Exterior Fault' domain="[('fault','=','exterior')]"/>
+                <group expand="0" string="Group By">
+                        <filter name="group_by_fault" string="Fault Type" domain="[]" context="{'group_by': 'fault'}"/>
+                </group>
+
+                <searchpanel>
+                        <field name="fault" string="Fault Type" icon="fa-users" select="multi" enable_counters="1"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- menu action -->
+    <record id="repair_info_action" model="ir.actions.act_window">
+        <field name="name">Repair Info</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">repairs.info</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add your first repair record!
+            </p>
+        </field>
+
+    </record>
+
+      <!-- menu definition -->
+    <menuitem id="repairs_menu"
+        name="Repairs Info"
+        action="repair_info_action"
+        parent="vehicle_management_root"
+        sequence="30"
+        />
+
+
+
+</odoo>
